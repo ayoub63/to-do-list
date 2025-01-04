@@ -16,10 +16,27 @@
 
     <sidebar class="projects">
         <h2 class="title-project">Your Projects</h2>
-        <button class="new-project">+</button>
-        <li class="project-list">
+        <button id="new-project">+</button>
+        <dialog id="project-dialog">
+
+        <form id="projectForm">
+            <label for="projectname">Name of Project: </label><br>
+            <input type="text" id="projectname" name="projectname" required = true>
+            <button id= "submit-project" type="submit">Create Project</button>
+        </form>
+
+        </dialog>
+      
+        <ul class="project-list">
             
-        </li>
+        </ul>
     </sidebar>
+    <div class="todo-container">
+        <ul class="todo-list">
+
+        </ul>
+
+
+    </div>
 </body>
 </html>
