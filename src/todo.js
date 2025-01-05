@@ -1,8 +1,9 @@
 export class Todo {
-    todo_constructor (name , description) {
+    constructor (name , description, project, dueDate, priority, completed) {
         this.name = name
         this.description = description
         this.dueDate =  new Date()
+        this.project = project
         this.priority = priority
         this.completed = completed
     }

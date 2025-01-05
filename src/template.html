@@ -11,7 +11,43 @@
         <button class="nav-btn">In Progress</button>
         <button class="nav-btn">Missed</button>
         <button class="nav-btn">All</button>
-        <button class="nav-btn">New Task</button>
+        <button class="nav-btn" id="new-task">New Task</button>
+
+        <dialog id="todo-dialog">
+
+            
+                <form id="todoForm">
+                    <!-- Title input -->
+                    <label for="todoName">Title: </label><br>
+                    <input type="text" id="title-todo" name="todoName" required><br><br>
+                
+                    <!-- Project selection -->
+                    <label for="project-select">Select Project: </label><br>
+                    <select id="project-select" name="project-select" >
+                        
+                    </select><br><br>
+                
+                    <!-- Priority selection -->
+                    <label for="priority-select">Priority: </label><br>
+                    <select id="priority-select" name="priority-select" required>
+                        <option value="low">Low</option>
+                        <option value="mid">Mid</option>
+                        <option value="high">High</option>
+                    </select><br><br>
+                
+                    <!-- Date selection -->
+                    <label for="due-date">Due Date: </label><br>
+                    <input type="date" id="due-date" name="due-date" required><br><br>
+                
+                    <!-- Description -->
+                    <label for="description">Description: </label><br>
+                    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+                
+                    <!-- Submit button -->
+                    <button type="submit" id="todo_btn">Add ToDo</button>
+                </form>
+    
+        </dialog>
     </nav>
 
     <sidebar class="projects">

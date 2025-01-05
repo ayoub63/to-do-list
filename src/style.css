@@ -1,6 +1,7 @@
 body {
     width: 100vh;
 }
-sidebar {
-    width: 25%;
-}
+
+.projects {
+  width: 25%;
+}  

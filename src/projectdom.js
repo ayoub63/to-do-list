@@ -26,7 +26,7 @@ function createProject(projectname) {
     
     project_Manager.addProject(project);
     renderProjects()
-    console.log(proaject_Manager.getProjects());
+    console.log(project_Manager.getProjects());
 
 
 }
@@ -45,6 +45,7 @@ function getFormData () {
        
         createProject(projectname)
         toggleDialog()
+        form.reset()
     })
 
     
@@ -61,6 +62,7 @@ function renderProjects () {
         console.log("Project being rendered:", project.name);
         const li = document.createElement("div")
         const btn = document.createElement("button")
+        btn.className = "project.button"
         btn.textContent = project.name
         li.appendChild(btn)
         projectdiv.appendChild(li)
@@ -71,6 +73,14 @@ function renderProjects () {
         return;
 
     }
+}
+
+
+function showProjectList () {
+    const btns = document.querySelectorAll("project.button")
+    btns.addEventListener("click", () =>  {
+        
+    })
 }
 
 document.addEventListener("DOMContentLoaded", () => {
