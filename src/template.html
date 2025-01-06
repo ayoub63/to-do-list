@@ -6,51 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="main-nav">
-        <button class="nav-btn">Today</button>
-        <button class="nav-btn">In Progress</button>
-        <button class="nav-btn">Missed</button>
-        <button class="nav-btn">All</button>
-        <button class="nav-btn" id="new-task">New Task</button>
-
-        <dialog id="todo-dialog">
-
-            
-                <form id="todoForm">
-                    <!-- Title input -->
-                    <label for="todoName">Title: </label><br>
-                    <input type="text" id="title-todo" name="todoName" required><br><br>
-                
-                    <!-- Project selection -->
-                    <label for="project-select">Select Project: </label><br>
-                    <select id="project-select" name="project-select" >
-                        
-                    </select><br><br>
-                
-                    <!-- Priority selection -->
-                    <label for="priority-select">Priority: </label><br>
-                    <select id="priority-select" name="priority-select" required>
-                        <option value="low">Low</option>
-                        <option value="mid">Mid</option>
-                        <option value="high">High</option>
-                    </select><br><br>
-                
-                    <!-- Date selection -->
-                    <label for="due-date">Due Date: </label><br>
-                    <input type="date" id="due-date" name="due-date" required><br><br>
-                
-                    <!-- Description -->
-                    <label for="description">Description: </label><br>
-                    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
-                
-                    <!-- Submit button -->
-                    <button type="submit" id="todo_btn">Add ToDo</button>
-                </form>
-    
-        </dialog>
-    </nav>
-
-    <sidebar class="projects">
+     <div class="main"><div class="left-side">
+        <aside class="projects">
         <h2 class="title-project">Your Projects</h2>
         <button id="new-project">+</button>
         <dialog id="project-dialog">
@@ -66,7 +23,50 @@
         <ul class="project-list">
             
         </ul>
-    </sidebar>
+    </aside></div>
+    
+    <div class="right-side">
+        <nav class="main-nav">
+        <button class="nav-btn">Today</button>
+        <button class="nav-btn">In Progress</button>
+        <button class="nav-btn">Missed</button>
+        <button class="nav-btn" id="all">All</button>
+        <button class="nav-btn" id="new-task">New Task</button>
+        </nav>
+
+        <dialog id="todo-dialog">
+            <form id="todoForm">
+        <!-- Title input -->
+                <label for="todoName">Title: </label><br>
+                <input type="text" id="todoName" name="todoName" required><br>
+            
+                <!-- Project selection -->
+                <label for="project-select">Select Project: </label><br>
+                <select id="project-select" name="project-select" >
+                    
+                </select><br><br>
+            
+                <!-- Priority selection -->
+                <label for="priority-select">Priority: </label><br>
+                <select id="priority-select" name="priority-select" required>
+                    <option value="low">Low</option>
+                    <option value="mid">Mid</option>
+                    <option value="high">High</option>
+                </select><br><br>
+            
+                <!-- Date selection -->
+                <label for="due-date">Due Date: </label><br>
+                <input type="date" id="due-date" name="due-date" required><br><br>
+            
+                <!-- Description -->
+                <label for="description">Description: </label><br>
+                <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+            
+                <!-- Submit button -->
+                <button type="submit" id="todo_btn">Add ToDo</button>
+            </form>
+        </dialog>
+    
     <div class="todo-container">
         <ul class="todo-list">
 
@@ -74,5 +74,10 @@
 
 
     </div>
+    </div>
+    </div>
+    
+   
+    
 </body>
 </html>

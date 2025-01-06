@@ -1,7 +1,84 @@
-body {
-    width: 100vh;
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.projects {
-  width: 25%;
-}  
+/* Main container for left and right sections */
+.main {
+  display: flex; /* Creates a horizontal flex container */
+  flex-direction: row; /* Ensures child elements align in a row */
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden; /* Prevents overflow */
+}
+
+/* Left side (projects area) */
+.left-side {
+  width: 20%; /* Adjust to control the width of the left section */
+  background-color: blue; /* Light background for contrast */
+  border-right: 1px solid #ddd; /* Add a subtle border */
+  padding: 1rem; /* Add some padding for spacing */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+/* Right side (todo area) */
+.right-side {
+  flex: 1; /* Take up the remaining space */
+  background-color: #fff; /* White background for contrast */
+  padding: 1rem; /* Add padding for spacing */
+  overflow-y: auto; /* Allow scrolling for content that overflows */
+}
+
+/* Navigation styling */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Project list styling */
+.project-list {
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color:black;
+  border-radius: 4px;
+}
+
+/* Todo list styling */
+.todo-container {
+  margin-top: 1rem;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}

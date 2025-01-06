@@ -1,6 +1,6 @@
 import { Project } from "./project";
-import {ProjectManager} from "./projectmanager.js"
-const project_Manager = new ProjectManager();
+import projectManager from "./projectmanagersingelton";
+import { renderToDo } from "./todolistdom";
 
 
 function toggleDialog() {
@@ -20,13 +20,18 @@ function createProject(projectname) {
         return;
     }
 
+    const select = document.getElementById("project-select")
     const project = new Project(projectname);
-    console.log(project.name)
+    const projectselect = document.createElement("option")
+    projectselect.value = project.name
+    projectselect.textContent = project.name
+    select.appendChild(projectselect)
+    
 
     
-    project_Manager.addProject(project);
+    projectManager.addProject(project);
     renderProjects()
-    console.log(project_Manager.getProjects());
+    
 
 
 }
@@ -54,35 +59,76 @@ function getFormData () {
 
 
 
-function renderProjects () {
-    const projectdiv = document.querySelector(".project-list")
-    const projectlist = project_Manager.getProjects()
-    projectdiv.innerHTML = ""; 
-    projectlist.forEach((project) => {
-        console.log("Project being rendered:", project.name);
-        const li = document.createElement("div")
-        const btn = document.createElement("button")
-        btn.className = "project.button"
-        btn.textContent = project.name
-        li.appendChild(btn)
-        projectdiv.appendChild(li)
-    })
+function renderProjects() {
+    const projectdiv = document.querySelector(".project-list");
+    const select = document.getElementById("project-select");
+    const projectlist = projectManager.getProjects(); // Get all projects
+
+    projectdiv.innerHTML = ""; // Clear the current project list
+
+    projectlist.forEach(project => {
+        const li = document.createElement("div");
+        const btn = document.createElement("button");
+        const deletebtn = document.createElement("button");
+
+        deletebtn.textContent = "Delete";
+        btn.className = "project.button";
+        btn.textContent = project.name;
+
+        btn.addEventListener("click", () => {
+            renderTodosForProject(project);
+        });
+
+        li.appendChild(btn);
+        li.appendChild(deletebtn);
+        projectdiv.appendChild(li);
+
+        // Delete button functionality
+        deletebtn.addEventListener("click", () => {
+            if (confirm(`Are you sure you want to delete the project "${project.name}" and its todos?`)) {
+                // Remove the project from the global list of projects
+                projectManager.deleteProject(project);
+        
+                // Remove the todos associated with the project from the global todo list
+                projectManager.deleteTodosByProject(project);
+        
+                // Remove the project from the dropdown
+                const options = select.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === project.name) {
+                        select.remove(i);
+                        break;
+                    }
+                }
+        
+                renderProjects();  // Update project list
+            }
+        });
+    });
 
     if (!projectdiv) {
         console.error("Project list container not found");
         return;
-
     }
 }
 
 
-function showProjectList () {
-    const btns = document.querySelectorAll("project.button")
-    btns.addEventListener("click", () =>  {
-        
-    })
+
+function renderTodosForProject(project) {
+    const todoListDiv = document.querySelector(".todo-list");
+    todoListDiv.innerHTML = "";  // Clear existing todos
+
+    // Filter the global todos to show only those associated with the current project
+    const projectTodos = projectManager.list_all_todos.filter(todo => todo.project === project.name);
+
+    projectTodos.forEach(todo => {
+        renderToDo(todo);  // Render each todo for this project
+    });
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     getFormData();
+    renderProjects();
 });
