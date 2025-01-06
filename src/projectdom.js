@@ -68,11 +68,14 @@ function renderProjects() {
 
     projectlist.forEach(project => {
         const li = document.createElement("div");
+        li.classList.add("project-div")
         const btn = document.createElement("button");
+        btn.classList.add ("project-button")
         const deletebtn = document.createElement("button");
 
         deletebtn.textContent = "Delete";
-        btn.className = "project.button";
+        deletebtn.classList.add("deletebtn")
+        
         btn.textContent = project.name;
 
         btn.addEventListener("click", () => {

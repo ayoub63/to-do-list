@@ -16,7 +16,7 @@ body, html {
 /* Left side (projects area) */
 .left-side {
   width: 20%; /* Adjust to control the width of the left section */
-  background-color: blue; /* Light background for contrast */
+  background-color: lavenderblush; /* Light background for contrast */
   border-right: 1px solid #ddd; /* Add a subtle border */
   padding: 1rem; /* Add some padding for spacing */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
@@ -37,7 +37,7 @@ body, html {
   margin-bottom: 1rem;
 }
 
-.nav-btn {
+.nav-btn, .project-button,  .project-header button {
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   background-color: #007bff;
@@ -47,7 +47,7 @@ body, html {
   cursor: pointer;
 }
 
-.nav-btn:hover {
+.nav-btn:hover , .project-header button:hover {
   background-color: #0056b3;
 }
 
@@ -63,22 +63,166 @@ body, html {
   padding: 0.5rem;
   background-color:black;
   border-radius: 4px;
+  
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* Todo list styling */
-.todo-container {
-  margin-top: 1rem;
-}
-
-.todo-list {
-  list-style: none;
-  padding: 0;
-}
-
 .todo-item {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: flex-start; /* Align content to the left */
+  gap: 1rem; /* Space between elements */
+  padding: 1.5rem;
+  margin-bottom: 1rem; /* Space between todo cards */
+  background-color: white; /* Card-like white background */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Rounded corners for the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.todo-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-title {
+  font-size: 1.5rem; /* Larger font for title */
+  font-weight: bold; /* Bold text */
+  margin: 0;
+}
+
+.todo-project {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #555; /* Subtle text color for the project name */
+}
+
+.todo-priority {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  color: white;
+  background-color: orange; /* Example priority color */
   border-radius: 4px;
-  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+.todo-due-date {
+  font-size: 1rem;
+  color: #333; /* Darker text color */
+}
+
+.todo-description {
+  font-size: 0.9rem;
+  color: #666; /* Lighter text color for descriptions */
+}
+
+.todo-btn, .deletebtn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  color: white; /* White text for contrast */
+}
+
+.todo-delete-btn , .deletebtn{
+  background-color: red;
+}
+
+.project-button {
+  width: 150px;
+  text-align: center;
+}
+.todo-delete-btn:hover, .deletebtn:hover {
+  background-color: darkred;
+}
+
+.update-btn {
+  background-color: #007bff;
+}
+
+.update-btn:hover {
+  background-color: #0056b3;
+}
+
+.pending {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  background-color: #ffeb3b;
+  color: #333;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.complete-btn {
+  background-color: green;
+}
+
+.complete-btn:hover {
+  background-color: darkgreen;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+
+.project-div {
+  display: flex;
+  gap: 50px;
+  justify-content: space-evenly;
+
+  
+}
+
+.title-project-pending-div, .due-date-priority-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+dialog form input,
+dialog form select,
+dialog form textarea {
+    margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    font: inherit;
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: all .3s ease;
+}
+
+dialog form input:focus,
+dialog form select:focus,
+dialog form textarea:focus {
+    border-color: #007bff;
+    background-color: #eaf4ff;
+    outline: none;
+}
+
+dialog button {
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    background-color: blue;
+}
+
+dialog form button {
+    float: right;
 }
