@@ -1,7 +1,7 @@
-import { Todo } from "./todo";
 import projectManager from "./projectmanagersingelton";
 import { formatDate } from "./datefunctions";
 import { createToDo } from "./todomanager";
+import { Todo } from "./todo";
 
 function toggleDialog() {
     const dialog = document.getElementById("todo-dialog");
@@ -11,6 +11,27 @@ function toggleDialog() {
     } else {
         dialog.showModal();  // Show the dialog if it's closed
     }
+}
+
+const LOCAL_STORAGE_KEY = "todos"
+export function loadTodos() {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+    const todos = storedTodos.map(todoData => {
+        const { name, description, project, dueDate, priority, completed } = todoData;
+        return new Todo(name, description, project, dueDate, priority, completed);
+    });
+
+    projectManager.list_all_todos = todos; // Update the global list
+    return todos;
+}
+
+
+
+// Function to save todos to localStorage
+export function saveTodos() {
+    const todos = projectManager.list_all_todos.map(todo => todo.toJSON());  // Convert all todos to plain objects
+    localStorage.setItem('todos', JSON.stringify(todos));  // Save them
+    console.log('Saved Todos:', todos);
 }
 
 // get form data and pass to create ToDo
@@ -35,10 +56,11 @@ function getFormData() {
         const priority = formData.get("priority-select");
         const description = formData.get("description");
         const dueDate = formData.get("due-date");
+        const completed = false
 
         if (mode === "create") {
             // Create a new todo
-            createToDo(todoTitle, description, project, dueDate, priority);
+            createToDo(todoTitle, description, project, dueDate, priority, completed);
         } else if (mode === "update") {
             // Update existing todo
             const todoIndex = form.getAttribute("data-todo-id");
@@ -49,6 +71,8 @@ function getFormData() {
                 todo.priority = priority;
                 todo.description = description;
                 todo.dueDate = dueDate;
+                todo.completed = false;
+                saveTodos()
                 renderAllTodos(); // Refresh the todo list
             }
         }
@@ -61,23 +85,24 @@ function getFormData() {
 // function to render all todos , call rendertodo for each instance
 export function renderAllTodos() {
     const todoListContainer = document.querySelector(".todo-list");
+    todoListContainer.innerHTML = ''; // Clear the todo list container
 
-    todoListContainer.innerHTML = '';
+    const all_btn = document.getElementById("all");
 
-    const all_btn = document.getElementById("all")
-
+    // Directly render all todos
     projectManager.list_all_todos.forEach(todo => {
-        renderToDo(todo);
+        renderToDo(todo); // Render each todo
     });
 
+    // Add event listener to the "All" button to reload todos when clicked
     all_btn.addEventListener("click", () => {
-        todoListContainer.innerHTML = ''; 
+        todoListContainer.innerHTML = ''; // Clear the todo list container
         projectManager.list_all_todos.forEach(todo => {
-            renderToDo(todo);
+            renderToDo(todo); // Re-render all todos
         });
-    })
-    
+    });
 }
+
 
 
 
@@ -168,20 +193,24 @@ export function renderToDo(todo) {
         form.elements["project-select"].value = todo.project;
         form.elements["priority-select"].value = todo.priority;
         form.elements["description"].value = todo.description;
-        form.elements["due-date"].value = todo.dueDate;
-
+        form.elements["due-date"].value = formatDate(todo.dueDate)
         dialog.showModal(); // Open the dialog
+        
     });
 
     completebtn.addEventListener("click", () => {
         todo.toggleCompleted();
         pending.textContent = todo.completed ? "Completed" : "Pending";
         completebtn.textContent = todo.completed ? "Unmark as Complete" : "Mark as Complete";
+        saveTodos()
     });
 
     deleteBtn.addEventListener("click", () => {
         li.remove();
         projectManager.list_all_todos = projectManager.list_all_todos.filter(t => t !== todo);
+        saveTodos();
+        loadTodos();
+
     });
 
     buttons_div.appendChild(deleteBtn);
@@ -194,6 +223,8 @@ export function renderToDo(todo) {
 
     li.appendChild(todo_div);
     todo_list.appendChild(li);
+
+    
 }
 
 
@@ -204,4 +235,6 @@ export function renderToDo(todo) {
 
 document.addEventListener("DOMContentLoaded", () => {
     getFormData(); // Get the form data and setup event listeners
+    loadTodos();
+    renderAllTodos(); 
 });

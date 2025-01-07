@@ -14,26 +14,29 @@ function toggleDialog() {
     }
 }
 
+function saveProjects() {
+    const projects = projectManager.list_of_projects.map(project => ({
+        name: project.name, // Extract only serializable properties
+    }));
+    localStorage.setItem("projects", JSON.stringify(projects));
+}
+function loadProjects() {
+    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+    const projects = storedProjects.map(projectData => new Project(projectData.name));
+    projectManager.list_of_projects = projects; // Update the global list
+    return projects;
+}
 function createProject(projectname) {
     if (!projectname) {
         console.error("Project name is required");
         return;
     }
 
-    const select = document.getElementById("project-select")
     const project = new Project(projectname);
-    const projectselect = document.createElement("option")
-    projectselect.value = project.name
-    projectselect.textContent = project.name
-    select.appendChild(projectselect)
-    
+    projectManager.addProject(project); // Add project to the global manager
+    saveProjects(); // Save the updated project list to localStorage
 
-    
-    projectManager.addProject(project);
-    renderProjects()
-    
-
-
+    renderProjects(); // Re-render the projects
 }
 
 function getFormData () {
@@ -62,21 +65,22 @@ function getFormData () {
 function renderProjects() {
     const projectdiv = document.querySelector(".project-list");
     const select = document.getElementById("project-select");
-    const projectlist = projectManager.getProjects(); // Get all projects
 
     projectdiv.innerHTML = ""; // Clear the current project list
+    select.innerHTML = ""; // Clear the dropdown list
 
-    projectlist.forEach(project => {
+    projectManager.list_of_projects.forEach(project => {
+        // Render project button
         const li = document.createElement("div");
-        li.classList.add("project-div")
-        const btn = document.createElement("button");
-        btn.classList.add ("project-button")
-        const deletebtn = document.createElement("button");
+        li.classList.add("project-div");
 
-        deletebtn.textContent = "Delete";
-        deletebtn.classList.add("deletebtn")
-        
+        const btn = document.createElement("button");
+        btn.classList.add("project-button");
         btn.textContent = project.name;
+
+        const deletebtn = document.createElement("button");
+        deletebtn.textContent = "Delete";
+        deletebtn.classList.add("deletebtn");
 
         btn.addEventListener("click", () => {
             renderTodosForProject(project);
@@ -86,33 +90,21 @@ function renderProjects() {
         li.appendChild(deletebtn);
         projectdiv.appendChild(li);
 
+        // Render project in dropdown
+        const projectselect = document.createElement("option");
+        projectselect.value = project.name;
+        projectselect.textContent = project.name;
+        select.appendChild(projectselect);
+
         // Delete button functionality
         deletebtn.addEventListener("click", () => {
             if (confirm(`Are you sure you want to delete the project "${project.name}" and its todos?`)) {
-                // Remove the project from the global list of projects
                 projectManager.deleteProject(project);
-        
-                // Remove the todos associated with the project from the global todo list
-                projectManager.deleteTodosByProject(project);
-        
-                // Remove the project from the dropdown
-                const options = select.options;
-                for (let i = 0; i < options.length; i++) {
-                    if (options[i].value === project.name) {
-                        select.remove(i);
-                        break;
-                    }
-                }
-        
-                renderProjects();  // Update project list
+                saveProjects();
+                renderProjects(); // Update the project list
             }
         });
     });
-
-    if (!projectdiv) {
-        console.error("Project list container not found");
-        return;
-    }
 }
 
 
@@ -133,5 +125,6 @@ function renderTodosForProject(project) {
 
 document.addEventListener("DOMContentLoaded", () => {
     getFormData();
+    loadProjects();
     renderProjects();
 });
