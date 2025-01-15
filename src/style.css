@@ -5,39 +5,35 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Main container for left and right sections */
 .main {
-  display: flex; /* Creates a horizontal flex container */
-  flex-direction: row; /* Ensures child elements align in a row */
-  height: 100vh; /* Full height of the viewport */
-  overflow: hidden; /* Prevents overflow */
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Left side (projects area) */
 .left-side {
-  width: 20%; /* Adjust to control the width of the left section */
-  background-color: lavenderblush; /* Light background for contrast */
-  border-right: 1px solid #ddd; /* Add a subtle border */
-  padding: 1rem; /* Add some padding for spacing */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  width: 20%;
+  background-color: #f4f5f7;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Right side (todo area) */
 .right-side {
-  flex: 1; /* Take up the remaining space */
-  background-color: #fff; /* White background for contrast */
-  padding: 1rem; /* Add padding for spacing */
-  overflow-y: auto; /* Allow scrolling for content that overflows */
+  flex: 1;
+  background-color: #fff;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
-/* Navigation styling */
 .main-nav {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.nav-btn, .project-button,  .project-header button {
+.nav-btn, .project-button, .project-header button {
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   background-color: #007bff;
@@ -47,11 +43,15 @@ body, html {
   cursor: pointer;
 }
 
-.nav-btn:hover , .project-header button:hover {
+.project-header button {
+  width: 80px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.nav-btn:hover, .project-header button:hover {
   background-color: #0056b3;
 }
 
-/* Project list styling */
 .project-list {
   margin-top: 1rem;
   padding: 0;
@@ -61,9 +61,8 @@ body, html {
 .project-list li {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  background-color:black;
+  background-color: black;
   border-radius: 4px;
-  
 }
 
 .project-list {
@@ -72,18 +71,22 @@ body, html {
   gap: 15px;
 }
 
-/* Todo list styling */
 .todo-item {
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: flex-start; /* Align content to the left */
-  gap: 1rem; /* Space between elements */
-  padding: 1.5rem;
-  margin-bottom: 1rem; /* Space between todo cards */
-  background-color: white; /* Card-like white background */
-  border: 1px solid #ddd; /* Light gray border */
-  border-radius: 8px; /* Rounded corners for the card */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .todo-div {
@@ -93,34 +96,34 @@ body, html {
 }
 
 .todo-title {
-  font-size: 1.5rem; /* Larger font for title */
-  font-weight: bold; /* Bold text */
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 0;
 }
 
 .todo-project {
-  font-size: 1rem;
-  font-weight: normal;
-  color: #555; /* Subtle text color for the project name */
+  font-weight: bolder;
+  color: #555;
+  font-size: 20px;
 }
 
 .todo-priority {
   padding: 0.2rem 0.5rem;
   font-size: 0.9rem;
   color: white;
-  background-color: orange; /* Example priority color */
+  background-color: orange;
   border-radius: 4px;
   display: inline-block;
 }
 
 .todo-due-date {
   font-size: 1rem;
-  color: #333; /* Darker text color */
+  color: #333;
 }
 
 .todo-description {
   font-size: 0.9rem;
-  color: #666; /* Lighter text color for descriptions */
+  color: #666;
 }
 
 .todo-btn, .deletebtn {
@@ -130,10 +133,10 @@ body, html {
   border-radius: 4px;
   cursor: pointer;
   margin-right: 0.5rem;
-  color: white; /* White text for contrast */
+  color: white;
 }
 
-.todo-delete-btn , .deletebtn{
+.todo-delete-btn, .deletebtn {
   background-color: red;
 }
 
@@ -141,6 +144,7 @@ body, html {
   width: 150px;
   text-align: center;
 }
+
 .todo-delete-btn:hover, .deletebtn:hover {
   background-color: darkred;
 }
@@ -176,14 +180,10 @@ body, html {
   align-items: center;
 }
 
-
-
 .project-div {
   display: flex;
   gap: 50px;
   justify-content: space-evenly;
-
-  
 }
 
 .title-project-pending-div, .due-date-priority-div {
@@ -192,37 +192,35 @@ body, html {
   align-items: center;
 }
 
-
 dialog form input,
 dialog form select,
 dialog form textarea {
-    margin-bottom: 1rem;
-    width: 100%;
-    margin-bottom: 1rem;
-    font: inherit;
-    padding: 4px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    transition: all .3s ease;
+  margin-bottom: 1rem;
+  width: 100%;
+  font: inherit;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
 }
 
 dialog form input:focus,
 dialog form select:focus,
 dialog form textarea:focus {
-    border-color: #007bff;
-    background-color: #eaf4ff;
-    outline: none;
+  border-color: #007bff;
+  background-color: #eaf4ff;
+  outline: none;
 }
 
 dialog button {
-    border: none;
-    padding: 8px;
-    border-radius: 3px;
-    color: #fff;
-    cursor: pointer;
-    background-color: blue;
+  border: none;
+  padding: 8px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  background-color: blue;
 }
 
 dialog form button {
-    float: right;
+  float: right;
 }

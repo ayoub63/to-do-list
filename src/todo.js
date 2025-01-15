@@ -2,7 +2,7 @@ export class Todo {
     constructor (name , description, project, dueDate, priority, completed) {
         this.name = name
         this.description = description
-        this.dueDate =  new Date()
+        this.dueDate =  dueDate
         this.project = project
         this.priority = priority
         this.completed = completed

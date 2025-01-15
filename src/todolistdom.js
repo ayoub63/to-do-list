@@ -59,8 +59,8 @@ function getFormData() {
         const completed = false
 
         if (mode === "create") {
-            // Create a new todo
             createToDo(todoTitle, description, project, dueDate, priority, completed);
+            renderAllTodos(projectManager.list_all_todos)
         } else if (mode === "update") {
             // Update existing todo
             const todoIndex = form.getAttribute("data-todo-id");
@@ -73,7 +73,7 @@ function getFormData() {
                 todo.dueDate = dueDate;
                 todo.completed = false;
                 saveTodos()
-                renderAllTodos(); // Refresh the todo list
+                renderAllTodos(projectManager.list_all_todos); // Refresh the todo list
             }
         }
 
@@ -83,24 +83,16 @@ function getFormData() {
 }
 
 // function to render all todos , call rendertodo for each instance
-export function renderAllTodos() {
+export function renderAllTodos(todolist) {
     const todoListContainer = document.querySelector(".todo-list");
-    todoListContainer.innerHTML = ''; // Clear the todo list container
+    todoListContainer.innerHTML = '';
 
-    const all_btn = document.getElementById("all");
+    
 
-    // Directly render all todos
-    projectManager.list_all_todos.forEach(todo => {
+    todolist.forEach(todo => {
         renderToDo(todo); // Render each todo
     });
-
-    // Add event listener to the "All" button to reload todos when clicked
-    all_btn.addEventListener("click", () => {
-        todoListContainer.innerHTML = ''; // Clear the todo list container
-        projectManager.list_all_todos.forEach(todo => {
-            renderToDo(todo); // Re-render all todos
-        });
-    });
+    
 }
 
 
@@ -229,12 +221,23 @@ export function renderToDo(todo) {
 
 
 
-
+function todobutton () {
+    const all_btn = document.getElementById("all");
+    const todoListContainer = document.querySelector(".todo-list");
+    all_btn.addEventListener("click", () => {
+        todoListContainer.innerHTML = ''; 
+        projectManager.list_all_todos.forEach(todo => {
+            renderToDo(todo); 
+        });
+    });
+}
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
     getFormData(); // Get the form data and setup event listeners
     loadTodos();
-    renderAllTodos(); 
+    todobutton();
+    renderAllTodos(projectManager.list_all_todos); 
+
 });

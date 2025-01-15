@@ -1,5 +1,5 @@
 import { ProjectManager } from './projectmanager.js';
 
-const projectManager = new ProjectManager(); // Create ONE shared instance
+const projectManager = new ProjectManager();
 
-export default projectManager; // Export it as default
+export default projectManager;
