@@ -224,3 +224,80 @@ dialog button {
 dialog form button {
   float: right;
 }
+
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust main container to stack items vertically */
+  .main {
+    flex-direction: column;
+  }
+
+  /* Make sidebar full width on mobile */
+  .left-side {
+    width: 100%;
+    border-right: none;
+    box-shadow: none;
+  }
+
+  /* Adjust the right side layout */
+  .right-side {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  /* Stacked project list */
+  .project-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .todo-item {
+    padding: 1rem;
+    font-size: 1rem; /* Adjust font size */
+  }
+
+  /* Stack todo items vertically */
+  .todo-div {
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    font-size: 0.9rem;
+  }
+
+  .project-button {
+    width: 100%;
+  }
+
+  /* Adjust button sizes for mobile */
+  .nav-btn, .project-button, .todo-btn, .deletebtn {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Reduce padding in project header */
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* For very small screens (phones in portrait mode) */
+@media (max-width: 480px) {
+  .todo-title {
+    font-size: 1.2rem; /* Smaller title font */
+  }
+
+  .todo-project {
+    font-size: 1rem; /* Adjust font size for project name */
+  }
+
+  .todo-priority {
+    font-size: 0.8rem; /* Adjust priority font size */
+  }
+
+  .todo-description {
+    font-size: 0.8rem; /* Adjust description font size */
+  }
+}
